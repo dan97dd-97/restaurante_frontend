@@ -1,16 +1,52 @@
-# React + Vite
+# Guía de Despliegue - Restaurante Frontend 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este documento detalla los pasos necesarios para desplegar la aplicación en **GitHub Pages** y las correcciones realizadas para que el enrutamiento funcione correctamente.
 
-Currently, two official plugins are available:
+## 🔗 Enlace del Proyecto
+Tu aplicación está disponible en:
+[https://dan97dd-97.github.io/restaurante_frontend/](https://dan97dd-97.github.io/restaurante_frontend/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🛠️ Correcciones Realizadas (Importante)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Para que una aplicación de React con `react-router-dom` funcione en una subcarpeta de GitHub (como `/restaurante_frontend/`), se han necesitado dos ajustes clave:
 
-## Expanding the ESLint configuration
+1.  **`vite.config.js`**:
+    Se ha añadido `base: "/restaurante_frontend/"`. Esto asegura que los archivos JS y CSS se carguen desde la ruta correcta.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2.  **`src/main.jsx`**:
+    Se ha configurado el `basename` en el `<BrowserRouter>`:
+    ```jsx
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    ```
+    Esto le dice a React Router que todas las rutas comienzan después de `/restaurante_frontend/`, evitando errores 404 al navegar.
+
+---
+
+## 🚀 Cómo Desplegar Cambios
+
+Cada vez que hagas cambios en el código y quieras verlos reflejados en internet, sigue estos pasos:
+
+1.  **Asegúrate de que tu código esté en GitHub:**
+    ```bash
+    git add .
+    git commit -m "Descripción de tus cambios"
+    git push
+    ```
+
+2.  **Ejecuta el comando de despliegue:**
+    Desde la carpeta `restaurante_frontend`, ejecuta:
+    ```bash
+    npm run deploy
+    ```
+
+### ¿Qué hace `npm run deploy`?
+-   Ejecuta `npm run build` para generar la carpeta `dist` con el código optimizado.
+-   Usa la librería `gh-pages` para subir esa carpeta a la rama `gh-pages` de tu repositorio.
+-   GitHub detecta esa rama y actualiza la web automáticamente.
+
+---
+
+## ⚠️ Nota sobre la API
+La aplicación utiliza un archivo `.env.production` para conectar con el backend. Asegúrate de que la URL en ese archivo sea la correcta para el entorno de producción.

@@ -6,7 +6,7 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode> {/* se activa el modo para alertas de desarrollo */}
-    <BrowserRouter> {/* para manejar las rutas de la aplicacion */}
+    <BrowserRouter basename={import.meta.env.BASE_URL}> {/* para manejar las rutas de la aplicacion */}
       <App /> {/* el componente principal que contiene toda la aplicacion */}
     </BrowserRouter>
   </React.StrictMode>,
