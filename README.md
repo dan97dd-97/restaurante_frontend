@@ -1,14 +1,12 @@
-# Guía de Despliegue - Restaurante Frontend 🚀
-
-Este documento detalla los pasos necesarios para desplegar la aplicación en **GitHub Pages** y las correcciones realizadas para que el enrutamiento funcione correctamente.
+# Guía de Despliegue - Restaurante Frontend 
 
 ## 🔗 Enlace del Proyecto
-Tu aplicación está disponible en:
+Mi aplicación está disponible en:
 [https://dan97dd-97.github.io/restaurante_frontend/](https://dan97dd-97.github.io/restaurante_frontend/)
 
 ---
 
-## 🛠️ Correcciones Realizadas (Importante)
+## 🛠️ Correcciones Realizadas
 
 Para que una aplicación de React con `react-router-dom` funcione en una subcarpeta de GitHub (como `/restaurante_frontend/`), se han necesitado dos ajustes clave:
 
@@ -33,7 +31,3 @@ docker compose up -d
 ```
 
 - El backend corre en: http://localhost:4000
-
-### 2. Frontend
-
-- El frontend consume la API del **backend** para mostrar categorías, productos y manejar interacciones del usuario.
