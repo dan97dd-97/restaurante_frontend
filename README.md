@@ -23,30 +23,17 @@ Para que una aplicación de React con `react-router-dom` funcione en una subcarp
     Esto le dice a React Router que todas las rutas comienzan después de `/restaurante_frontend/`, evitando errores 404 al navegar.
 
 ---
+### Despliegue en local
 
-## 🚀 Cómo Desplegar Cambios
+### 1. Backend
 
-Cada vez que hagas cambios en el código y quieras verlos reflejados en internet, sigue estos pasos:
+```bash
+cd backend
+docker compose up -d
+```
 
-1.  **Asegúrate de que tu código esté en GitHub:**
-    ```bash
-    git add .
-    git commit -m "Descripción de tus cambios"
-    git push
-    ```
+- El backend corre en: http://localhost:4000
 
-2.  **Ejecuta el comando de despliegue:**
-    Desde la carpeta `restaurante_frontend`, ejecuta:
-    ```bash
-    npm run deploy
-    ```
+### 2. Frontend
 
-### ¿Qué hace `npm run deploy`?
--   Ejecuta `npm run build` para generar la carpeta `dist` con el código optimizado.
--   Usa la librería `gh-pages` para subir esa carpeta a la rama `gh-pages` de tu repositorio.
--   GitHub detecta esa rama y actualiza la web automáticamente.
-
----
-
-## ⚠️ Nota sobre la API
-La aplicación utiliza un archivo `.env.production` para conectar con el backend. Asegúrate de que la URL en ese archivo sea la correcta para el entorno de producción.
+- El frontend consume la API del **backend** para mostrar categorías, productos y manejar interacciones del usuario.
