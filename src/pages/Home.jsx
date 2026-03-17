@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'; {/* importamos los hooks de react */}
-import { Link } from 'react-router-dom'; {/* importamos el componente link de react-router-dom */}
-import { getRestaurants } from '../services/api'; {/* función que trae la lista de restaurantes desde la API. */}
+import { useState, useEffect } from 'react'; {/* importamos los hooks de react */ }
+import { Link } from 'react-router-dom'; {/* importamos el componente link de react-router-dom */ }
+import { getRestaurants } from '../services/api'; {/* función que trae la lista de restaurantes desde la API. */ }
 
 function Home() {
     const [restaurants, setRestaurants] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         getRestaurants()
@@ -12,10 +13,15 @@ function Home() {
                 setRestaurants(data);
                 setLoading(false);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.error(err);
+                setError(err.message);
+                setLoading(false);
+            });
     }, []);
 
     if (loading) return <div className="text-center mt-5">Cargando restaurantes...</div>;
+    if (error) return <div className="alert alert-danger m-5 text-center">Error al cargar restaurantes: {error}</div>;
 
     return (
         <div className="container">
