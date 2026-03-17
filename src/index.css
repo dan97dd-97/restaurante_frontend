@@ -1,26 +1,106 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
 
 body {
-    background-color: #f8f9fa;
-    font-family: sans-serif;
+    background: linear-gradient(-45deg, #ffecd2, #fcb69f, #e0c3fc, #8ec5fc);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    font-family: 'Outfit', sans-serif;
+    color: #2c3e50;
+    /* Changed text color to a darker shade for readability on light BG */
+    min-height: 100vh;
 }
 
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+h1 {
+    font-weight: 700;
+    color: #2c3e50;
+    text-shadow: 0 4px 10px rgba(255, 255, 255, 0.6);
+    margin-top: 2rem;
+    letter-spacing: 1px;
+}
+
+/* Glassmorphism Cards */
 .card {
-    transition: transform 0.2s;
-    cursor: pointer;
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    border-radius: 16px !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+    color: #333 !important;
 }
 
 .card:hover {
-    transform: scale(1.02);
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 255, 255, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 1) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+}
+
+.card-title.text-primary {
+    color: #ff6b6b !important;
+    /* Premium cheerful color */
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+}
+
+.card-text.text-muted {
+    color: #6c757d !important;
+    font-weight: 400;
+}
+
+/* Button Styling */
+.btn-primary {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53) !important;
+    border: none !important;
+    border-radius: 30px !important;
+    padding: 0.6rem 1.5rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4) !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6) !important;
+    background: linear-gradient(135deg, #ff8e53, #ffa270) !important;
 }
 
 .navbar {
     margin-bottom: 2rem;
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .table-container {
-    background: white;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.text-center {
+    color: #2c3e50;
 }
