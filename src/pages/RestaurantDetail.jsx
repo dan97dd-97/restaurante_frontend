@@ -6,6 +6,7 @@ function RestaurantDetail() {
     const { id } = useParams();
     const [data, setData] = useState({ restaurant: null, dishes: [], orders: [], customers: [] });
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         Promise.all([getRestaurants(), getDishes(), getOrders(), getCustomers()])
@@ -18,10 +19,16 @@ function RestaurantDetail() {
 
                 setData({ restaurant, dishes, orders, customers });
                 setLoading(false);
+            })
+            .catch(err => {
+                console.error(err);
+                setError(err.message);
+                setLoading(false);
             });
     }, [id]);
 
     if (loading) return <div className="text-center mt-5">Cargando detalles...</div>;
+    if (error) return <div className="alert alert-danger m-5 text-center">Error al cargar detalles: {error}</div>;
     if (!data.restaurant) return <div className="alert alert-danger">Restaurante no encontrado</div>;
 
     return (
@@ -46,34 +53,33 @@ function RestaurantDetail() {
             </section>
 
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-12">
                     <section className="mb-5 px-3 py-4 bg-white border rounded shadow-sm">
-                        <h3>Pedidos</h3>
-                        <table className="table">
-                            <thead>
-                                <tr><th>ID</th><th>Fecha</th><th>Cliente ID</th></tr>
-                            </thead>
-                            <tbody>
-                                {data.orders.map(o => (
-                                    <tr key={o.pedidoID}>
-                                        <td>#{o.pedidoID}</td>
-                                        <td>{new Date(o.fecha).toLocaleDateString()}</td>
-                                        <td>{o.clienteID}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </section>
-                </div>
-                <div className="col-md-6">
-                    <section className="mb-5 px-3 py-4 bg-white border rounded shadow-sm">
-                        <h3>Clientes de pedidos</h3>
-                        <div className="row g-2">
-                            {data.customers.map(c => (
-                                <div key={c.clienteID} className="col-12 p-2 border-bottom">
-                                    {c.nombre} {c.apellido1} - <small className="text-muted">{c.poblacion}</small>
-                                </div>
-                            ))}
+                        <h3 className="mb-4">Pedidos por Cliente</h3>
+                        <div className="row g-4">
+                            {data.customers.map(c => {
+                                const customerOrders = data.orders.filter(o => o.clienteID === c.clienteID);
+                                return (
+                                    <div key={c.clienteID} className="col-md-6 col-lg-6">
+                                        <div className="card h-100 shadow-sm border-0 bg-white">
+                                            <div className="card-body">
+                                                <h5 className="card-title text-dark fw-bolder" style={{ fontSize: "1.3rem" }}>{c.nombre} {c.apellido1}</h5>
+                                                <h6 className="card-subtitle mb-3 text-muted">{c.poblacion}</h6>
+
+                                                <p className="mb-2 fw-semibold text-secondary" style={{ fontSize: "0.9rem" }}>Historial de Pedidos ({customerOrders.length}):</p>
+                                                <div className="list-group list-group-flush border-top">
+                                                    {customerOrders.map(o => (
+                                                        <div key={o.pedidoID} className="list-group-item bg-transparent px-0 py-2 d-flex justify-content-between align-items-center">
+                                                            <span className="fw-medium text-dark">Pedido #{o.pedidoID}</span>
+                                                            <span className="badge bg-secondary rounded-pill">{new Date(o.fecha).toLocaleDateString()}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </section>
                 </div>
